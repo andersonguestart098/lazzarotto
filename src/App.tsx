@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Box, CssBaseline } from "@mui/material";
+import TopBar from "./components/layout/TopBar";
+import Navbar from "./components/layout/Navbar";
+import Banner from "./components/ui/Banner";
+import Conteudo from "./components/ui/Conteudo";
+import FloatingWhatsApp from "./components/ui/FloatingWhatsApp"; // ✅ Importando o botão flutuante
+import PartnerHighlight from "./components/ui/PartnerHighlight";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ width: "100vw", overflowX: "hidden", margin: 0, padding: 0 }}>
+      <CssBaseline />
+      <TopBar />
+      <Navbar />
+      <Box sx={{ width: "100%", flexGrow: 1, marginTop: "46px" }}>
+        <Banner />
+      </Box>
+      <Conteudo />
+      <PartnerHighlight />
+      
+      {/* ✅ Adicionamos o botão flutuante do WhatsApp */}
+      <FloatingWhatsApp />
+    </Box>
   );
 }
 
