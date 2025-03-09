@@ -37,12 +37,12 @@ interface MarqueeRowProps {
 const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
   const marqueeVariants = {
     animate: {
-      x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'],
+      x: direction === 'left' ? ['0%', '-100%'] : ['-100%', '0%'],
       transition: {
         x: {
           repeat: Infinity,
-          repeatType: 'mirror', // Agora o movimento é mais natural e sem pausa
-          duration: 20, // Ajuste fino para manter a ilusão de continuidade
+          repeatType: 'loop',
+          duration: 70, // 🔥 Agora dura 70 segundos (ainda mais lenta que antes)
           ease: 'linear',
         },
       },
@@ -55,17 +55,17 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
-          gap: '16px', // Espaço uniforme entre os cards
+          gap: '16px',
         }}
         variants={marqueeVariants}
         animate="animate"
       >
-        {/* Repetindo os parceiros várias vezes para não criar lacunas */}
+        {/* 🔥 Repetindo os parceiros para preencher a tela e manter a continuidade */}
         {[...partners, ...partners, ...partners].map((partner, index) => (
           <Card
             key={`${partner.id}-${index}`}
             sx={{
-              width: 220, // Tamanho aumentado para preencher melhor a tela
+              width: 220,
               height: 110,
               display: 'flex',
               alignItems: 'center',
@@ -73,7 +73,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
               boxShadow: 3,
               borderRadius: 3,
               flexShrink: 0,
-              mx: 0.5, // Pequeno espaçamento entre os cards
+              mx: 0.5,
             }}
           >
             <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -95,9 +95,9 @@ const PartnerHighlight: React.FC = () => {
     <Box sx={{ py: 10, textAlign: 'center', bgcolor: '#f8f9fa' }}>
       <h2
         style={{
-          fontSize: '36px', // Tamanho maior para destaque
+          fontSize: '36px',
           fontWeight: 'bold',
-          marginBottom: '16px', // Espaço maior abaixo do título
+          marginBottom: '16px',
           fontFamily: 'Poppins, sans-serif',
           color: '#5B0F00',
         }}
@@ -106,13 +106,13 @@ const PartnerHighlight: React.FC = () => {
       </h2>
       <p
         style={{
-          fontSize: '18px', // Texto maior para melhor leitura
+          fontSize: '18px',
           color: '#5B0F00',
           fontFamily: 'Poppins, sans-serif',
-          marginBottom: '40px', // Mais espaço entre o texto e os cards
-          maxWidth: '750px', // Mantém o texto centralizado e bem distribuído
-          margin: '0 auto', // Centraliza corretamente
-          lineHeight: '1.6', // Aumenta o espaçamento entre linhas para facilitar a leitura
+          marginBottom: '40px',
+          maxWidth: '750px',
+          margin: '0 auto',
+          lineHeight: '1.6',
         }}
       >
         Trabalhamos lado a lado com marcas de renome que compartilham nosso compromisso com 

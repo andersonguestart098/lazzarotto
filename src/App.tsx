@@ -4,7 +4,7 @@ import TopBar from "./components/layout/TopBar";
 import Navbar from "./components/layout/Navbar";
 import Banner from "./components/ui/Banner";
 import Conteudo from "./components/ui/Conteudo";
-import FloatingWhatsApp from "./components/ui/FloatingWhatsApp"; // ✅ Importando o botão flutuante
+import FloatingChat from "./components/ui/FloatingChat"; // ✅ Substituindo o WhatsApp pelo chatbot
 import PartnerHighlight from "./components/ui/PartnerHighlight";
 
 function App() {
@@ -19,8 +19,8 @@ function App() {
       <Conteudo />
       <PartnerHighlight />
       
-      {/* ✅ Adicionamos o botão flutuante do WhatsApp */}
-      <FloatingWhatsApp />
+      {/* ✅ Substituímos o botão do WhatsApp pelo chatbot */}
+      <FloatingChat />
     </Box>
   );
 }
