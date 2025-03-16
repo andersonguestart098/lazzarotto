@@ -64,10 +64,11 @@ const Conteudo: React.FC = () => {
         position: 'relative',
         backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px)',
         backgroundSize: '50px 50px',
+        minHeight: '400px', // Garante altura mínima para a wave ser visível
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
-        {/* Cabeçalho da Seção (mantido original) */}
+        {/* Cabeçalho da Seção */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -195,11 +196,11 @@ const Conteudo: React.FC = () => {
                 <Box sx={{ p: 3 }}>
                   <Typography
                     sx={{
-                      color: '#4A2C2A', // Tom mais suave para o texto
+                      color: '#4A2C2A',
                       mb: 2,
-                      lineHeight: 1.7, // Espaçamento maior entre linhas
+                      lineHeight: 1.7,
                       fontSize: '1rem',
-                      fontWeight: 400, // Peso mais leve para um visual elegante
+                      fontWeight: 400,
                       fontFamily: "'Roboto', sans-serif",
                     }}
                   >
@@ -214,14 +215,8 @@ const Conteudo: React.FC = () => {
                           key={idx}
                           sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}
                         >
-                          <Box
-                            sx={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              mr: 1.5,
-                            }}
-                          >
-                            <Check size={14} color="#5B0F00" /> {/* Ícone de checkmark moderno */}
+                          <Box sx={{ display: 'flex', alignItems: 'center', mr: 1.5 }}>
+                            <Check size={14} color="#5B0F00" />
                           </Box>
                           <Typography
                             sx={{
@@ -246,7 +241,7 @@ const Conteudo: React.FC = () => {
                     sx={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      background: '#7A1F0A', // Tom mais claro de vermelho
+                      background: '#7A1F0A',
                       color: '#E6E3DB',
                       padding: '8px 16px',
                       borderRadius: 6,
@@ -255,7 +250,7 @@ const Conteudo: React.FC = () => {
                       fontFamily: "'Montserrat', sans-serif",
                       transition: 'background 0.3s ease',
                       '&:hover': {
-                        background: '#5B0F00', // Volta ao tom original no hover
+                        background: '#5B0F00',
                       },
                     }}
                   >
@@ -268,7 +263,7 @@ const Conteudo: React.FC = () => {
           ))}
         </Grid>
 
-        {/* Seção de Destaque (mantida original) */}
+        {/* Seção de Destaque */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 30 }}
@@ -435,6 +430,29 @@ const Conteudo: React.FC = () => {
           </Grid>
         </Box>
       </Container>
+
+      {/* Smooth Wave no limite inferior do componente (invertida para "descer") */}
+      <Box
+        component="svg"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          height: { xs: '60px', md: '82px' },
+          zIndex: 1,
+          transform: 'scaleY(-1)', // Inverte a wave para "descer" do limite inferior
+        }}
+      >
+        <path
+          fill="#5B0F00" // Cor do fundo do Conteudo
+          d="M0,256 C120,224 240,192 360,200 C480,208 600,256 720,272 C840,288 960,256 1080,240 C1200,224 1320,240 1440,256 V321 H0 Z"
+          style={{ filter: 'blur(2px)' }}
+        />
+      </Box>
     </Box>
   );
 };

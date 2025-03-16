@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Box, IconButton, Paper, Typography, Button, Slide, Fade } from "@mui/material";
+import { Box, IconButton, Paper, Typography, Button, Slide, Fade, useMediaQuery } from "@mui/material";
 import { Close, Send, SmartToy } from "@mui/icons-material";
 import Lottie from "lottie-react";
 import typingAnimation from "../../assets/Animation - 1741494129792.json";
-import chatIconAnimation from "../../assets/Animation - 1741495484916.json"; // 🔥 Animação do ícone de chat
+import chatIconAnimation from "../../assets/Animation - 1741495484916.json";
 
 const chatOptions = [
   {
@@ -28,12 +28,13 @@ const FloatingChat: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<Array<{ type: "user" | "bot"; message: string }>>([]);
   const [isTyping, setIsTyping] = useState(false);
   const chatRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
-  }, [chatHistory]);
+  }, [chatHistory, isTyping]);
 
   const handleOptionClick = (option: typeof chatOptions[0]) => {
     setChatHistory((prev) => [...prev, { type: "user", message: option.question }]);
@@ -45,42 +46,43 @@ const FloatingChat: React.FC = () => {
   };
 
   return (
-    <Box sx={{ position: "fixed", bottom: 80, right: 20, zIndex: 9999 }}> {/* 🔥 Movido mais para cima */}
-  {!isOpen && (
-    <Fade in={!isOpen}>
-      <IconButton
-        onClick={() => setIsOpen(true)}
-        sx={{
-          width: 76,
-          height: 76,
-          bgcolor: "#8B1A0E",
-          color: "white",
-          borderRadius: "50%",
-          boxShadow: 3,
-          transition: "all 0.3s ease",
-          "&:hover": { bgcolor: "#A63D2D", transform: "scale(1.1)" },
-          paddingBottom: "10px", // 🔥 Evita que encoste na borda inferior
-        }}
-      >
-        <Lottie animationData={chatIconAnimation} style={{ width: 66, height: 66 }} />
-      </IconButton>
-    </Fade>
-  )}
+    <Box sx={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999 }}>
+      {!isOpen && (
+        <Fade in={!isOpen}>
+          <IconButton
+            onClick={() => setIsOpen(true)}
+            sx={{
+              width: 80,
+              height: 80,
+              bgcolor: "#8B1A0E",
+              color: "white",
+              borderRadius: "50%",
+              boxShadow: 3,
+              transition: "all 0.3s ease",
+              "&:hover": { bgcolor: "#A63D2D", transform: "scale(1.1)" },
+            }}
+          >
+            <Lottie animationData={chatIconAnimation} style={{ width: 70, height: 70 }} />
+          </IconButton>
+        </Fade>
+      )}
 
       <Slide direction="up" in={isOpen} mountOnEnter unmountOnExit>
         <Paper
           sx={{
-            position: "absolute",
+            position: "fixed",
             bottom: 0,
             right: 0,
-            width: 450,
-            height: 600,
+            width: isMobile ? "100vw" : 450,
+            height: isMobile ? "100vh" : 600,
             display: "flex",
             flexDirection: "column",
             boxShadow: 5,
-            borderRadius: 3,
+            borderRadius: isMobile ? 0 : 3,
             overflow: "hidden",
             bgcolor: "white",
+            maxWidth: "100%",
+            maxHeight: "100%",
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center", bgcolor: "#8B1A0E", color: "white", p: 2 }}>
@@ -93,64 +95,34 @@ const FloatingChat: React.FC = () => {
             </IconButton>
           </Box>
 
-          <Box 
-            ref={chatRef} 
-            sx={{ 
-                flex: 1, 
-                p: 2, 
-                overflowY: "auto", 
-                bgcolor: "white", 
-                "&::-webkit-scrollbar": { width: "6px" },
-                "&::-webkit-scrollbar-thumb": { backgroundColor: "#D1A7A7", borderRadius: "6px" }
-            }}
-            >
+          <Box ref={chatRef} sx={{ flex: 1, p: 2, overflowY: "auto", bgcolor: "white" }}>
             {chatHistory.length === 0 ? (
-                <Typography 
-                variant="body2" 
-                color="text.secondary" 
-                sx={{ textAlign: "center", mt: 2, fontStyle: "italic" }}
-                >
+              <Typography variant="body2" color="text.secondary" sx={{ textAlign: "center", mt: 2, fontStyle: "italic" }}>
                 Olá! Escolha uma opção abaixo para começar. 👇
-                </Typography>
+              </Typography>
             ) : (
-                chatHistory.map((msg, index) => (
-                <Box 
-                    key={index} 
-                    sx={{ 
-                    display: "flex", 
-                    justifyContent: msg.type === "user" ? "flex-end" : "flex-start", 
-                    mb: 1 
-                    }}
-                >
-                    <Box
+              chatHistory.map((msg, index) => (
+                <Box key={index} sx={{ display: "flex", justifyContent: msg.type === "user" ? "flex-end" : "flex-start", mb: 1 }}>
+                  <Box
                     sx={{
-                        maxWidth: "75%",
-                        p: 1.5,
-                        borderRadius: msg.type === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
-                        bgcolor: msg.type === "user" ? "#8B1A0E" : "#F8E1E1", // 🔥 Tons mais suaves
-                        color: msg.type === "user" ? "white" : "#5B0F00",
-                        boxShadow: msg.type === "user" ? "0px 2px 4px rgba(0,0,0,0.15)" : "0px 2px 6px rgba(0,0,0,0.1)"
+                      maxWidth: "75%",
+                      p: 1.5,
+                      borderRadius: "16px",
+                      bgcolor: msg.type === "user" ? "#8B1A0E" : "#F8E1E1",
+                      color: msg.type === "user" ? "white" : "#5B0F00",
                     }}
-                    >
-                    <Typography 
-                        variant="body2" 
-                        sx={{ fontWeight: "500", lineHeight: "1.4" }}
-                    >
-                        {msg.message}
-                    </Typography>
-                    </Box>
+                  >
+                    <Typography variant="body2">{msg.message}</Typography>
+                  </Box>
                 </Box>
-                ))
+              ))
             )}
-
-            {/* 🔥 Animação "digitando..." ajustada */}
             {isTyping && (
-                <Box sx={{ display: "flex", justifyContent: "flex-start", mt: 1 }}>
+              <Box sx={{ display: "flex", justifyContent: "flex-start", mt: 1 }}>
                 <Lottie animationData={typingAnimation} style={{ width: 80, height: 40 }} />
-                </Box>
+              </Box>
             )}
-            </Box>
-
+          </Box>
 
           <Box sx={{ p: 2, borderTop: "1px solid #E5E7EB", bgcolor: "white" }}>
             {chatOptions.map((option) => (
@@ -171,29 +143,13 @@ const FloatingChat: React.FC = () => {
                   "&:hover": { backgroundColor: "#E5C4C4" },
                 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Typography variant="body2">{option.question}</Typography>
-                </Box>
+                <Typography variant="body2">{option.question}</Typography>
                 <Send sx={{ fontSize: 16, color: "#5B0F00" }} />
               </Button>
             ))}
           </Box>
         </Paper>
       </Slide>
-
-      {/* 🔥 Adicionando keyframes para vibração */}
-      <style>
-        {`
-          @keyframes vibrate {
-            0% { transform: translate(0, 0); }
-            20% { transform: translate(-1px, 1px); }
-            40% { transform: translate(1px, -1px); }
-            60% { transform: translate(-1px, 1px); }
-            80% { transform: translate(1px, -1px); }
-            100% { transform: translate(0, 0); }
-          }
-        `}
-      </style>
     </Box>
   );
 };

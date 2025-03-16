@@ -6,6 +6,8 @@ import Banner from "./components/ui/Banner";
 import Conteudo from "./components/ui/Conteudo";
 import FloatingChat from "./components/ui/FloatingChat"; // ✅ Substituindo o WhatsApp pelo chatbot
 import PartnerHighlight from "./components/ui/PartnerHighlight";
+import Lojas from "./components/ui/Lojas";
+import Footer from "./components/layout/Footer";
 
 function App() {
   return (
@@ -18,7 +20,8 @@ function App() {
       </Box>
       <Conteudo />
       <PartnerHighlight />
-      
+      <Lojas/>
+      <Footer/>
       {/* ✅ Substituímos o botão do WhatsApp pelo chatbot */}
       <FloatingChat />
     </Box>

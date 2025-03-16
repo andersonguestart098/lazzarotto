@@ -42,7 +42,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
         x: {
           repeat: Infinity,
           repeatType: 'loop',
-          duration: 70, // 🔥 Agora dura 70 segundos (ainda mais lenta que antes)
+          duration: 70,
           ease: 'linear',
         },
       },
@@ -50,7 +50,7 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
   };
 
   return (
-    <Box sx={{ overflow: 'hidden', width: '100vw', py: 2, display: 'flex' }}>
+    <Box sx={{ overflow: 'hidden', width: '100vw', py: 1, display: 'flex' }}>
       <motion.div
         style={{
           display: 'flex',
@@ -60,7 +60,6 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
         variants={marqueeVariants}
         animate="animate"
       >
-        {/* 🔥 Repetindo os parceiros para preencher a tela e manter a continuidade */}
         {[...partners, ...partners, ...partners].map((partner, index) => (
           <Card
             key={`${partner.id}-${index}`}
@@ -92,39 +91,68 @@ const MarqueeRow: React.FC<MarqueeRowProps> = ({ partners, direction }) => {
 
 const PartnerHighlight: React.FC = () => {
   return (
-    <Box sx={{ py: 10, textAlign: 'center', bgcolor: '#f8f9fa' }}>
+    <Box
+      sx={{
+        py: 6,
+        textAlign: 'center',
+        bgcolor: '#f8f9fa',
+        position: 'relative',
+        minHeight: '350px',
+        overflow: 'visible',
+      }}
+    >
       <h2
         style={{
-          fontSize: '36px',
+          fontSize: '32px',
           fontWeight: 'bold',
-          marginBottom: '16px',
+          marginBottom: '10px',
           fontFamily: 'Poppins, sans-serif',
           color: '#5B0F00',
+          position: 'relative',
+          zIndex: 2,
         }}
       >
         Nossos Parceiros
       </h2>
       <p
         style={{
-          fontSize: '18px',
+          fontSize: '16px',
           color: '#5B0F00',
           fontFamily: 'Poppins, sans-serif',
-          marginBottom: '40px',
+          marginBottom: '30px',
           maxWidth: '750px',
           margin: '0 auto',
-          lineHeight: '1.6',
+          lineHeight: '1.5',
+          position: 'relative',
+          zIndex: 2,
         }}
       >
-        Trabalhamos lado a lado com marcas de renome que compartilham nosso compromisso com 
-        a excelência e a inovação. Juntos, criamos soluções de alto impacto para nossos clientes.
+        Trabalhamos lado a lado com marcas de renome que compartilham nosso compromisso com a excelência e a inovação. Juntos, criamos soluções de alto impacto para nossos clientes.
       </p>
 
-      <Box sx={{ overflow: 'hidden', bgcolor: 'white', p: 3, boxShadow: 3 }}>
-        {/* Primeira linha - Movendo para a esquerda */}
+      <Box sx={{ overflow: 'hidden', bgcolor: 'white', p: 3, boxShadow: 3, position: 'relative', zIndex: 2 }}>
         <MarqueeRow partners={partners} direction="left" />
-
-        {/* Segunda linha - Movendo para a direita */}
         <MarqueeRow partners={partners} direction="right" />
+      </Box>
+
+      <Box
+        component="svg"
+        viewBox="0 0 1440 320"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        sx={{
+          position: 'absolute',
+          bottom: -1,
+          left: 0,
+          width: '100%',
+          height: { xs: '60px', md: '82px' },
+        }}
+      >
+        <path
+          fill="#5B0F00"
+          d="M0,256 C120,224 240,192 360,200 C480,208 600,256 720,272 C840,288 960,256 1080,240 C1200,224 1320,240 1440,256 V321 H0 Z"
+          style={{ filter: 'blur(2px)' }}
+        />
       </Box>
     </Box>
   );
