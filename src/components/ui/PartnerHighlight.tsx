@@ -93,11 +93,11 @@ const PartnerHighlight: React.FC = () => {
   return (
     <Box
       sx={{
-        py: 6,
+        py: 4,
         textAlign: 'center',
         bgcolor: '#f8f9fa',
         position: 'relative',
-        minHeight: '350px',
+        minHeight: '400px', // Aumentado de 350px para 400px para mais espaço abaixo
         overflow: 'visible',
       }}
     >
@@ -105,7 +105,7 @@ const PartnerHighlight: React.FC = () => {
         style={{
           fontSize: '32px',
           fontWeight: 'bold',
-          marginBottom: '10px',
+          marginBottom: '8px',
           fontFamily: 'Poppins, sans-serif',
           color: '#5B0F00',
           position: 'relative',
@@ -119,7 +119,7 @@ const PartnerHighlight: React.FC = () => {
           fontSize: '16px',
           color: '#5B0F00',
           fontFamily: 'Poppins, sans-serif',
-          marginBottom: '30px',
+          marginBottom: '70px', // Aumentado de 50px para 70px para mais espaçamento entre texto e cards
           maxWidth: '750px',
           margin: '0 auto',
           lineHeight: '1.5',
@@ -130,30 +130,12 @@ const PartnerHighlight: React.FC = () => {
         Trabalhamos lado a lado com marcas de renome que compartilham nosso compromisso com a excelência e a inovação. Juntos, criamos soluções de alto impacto para nossos clientes.
       </p>
 
-      <Box sx={{ overflow: 'hidden', bgcolor: 'white', p: 3, boxShadow: 3, position: 'relative', zIndex: 2 }}>
+      <Box sx={{ overflow: 'hidden', bgcolor: 'white', p: 3, boxShadow: 3, mb: 4, position: 'relative', zIndex: 2 }}>
+        {/* Adicionado mb: 4 para espaçamento entre cards e wave */}
         <MarqueeRow partners={partners} direction="left" />
         <MarqueeRow partners={partners} direction="right" />
       </Box>
 
-      <Box
-        component="svg"
-        viewBox="0 0 1440 320"
-        xmlns="http://www.w3.org/2000/svg"
-        preserveAspectRatio="none"
-        sx={{
-          position: 'absolute',
-          bottom: -1,
-          left: 0,
-          width: '100%',
-          height: { xs: '60px', md: '82px' },
-        }}
-      >
-        <path
-          fill="#5B0F00"
-          d="M0,256 C120,224 240,192 360,200 C480,208 600,256 720,272 C840,288 960,256 1080,240 C1200,224 1320,240 1440,256 V321 H0 Z"
-          style={{ filter: 'blur(2px)' }}
-        />
-      </Box>
     </Box>
   );
 };

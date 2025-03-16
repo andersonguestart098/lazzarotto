@@ -2,12 +2,12 @@ import React from 'react';
 import { Box, Typography, Grid, Container, Paper, Divider } from '@mui/material';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Award, Clock, PenTool as Tool, Check } from 'lucide-react';
-import img1 from '../../assets/img1.jpg';
-import img2 from '../../assets/img2.jpg';
-import img3 from '../../assets/img3.jpg';
-import img4 from '../../assets/img4.jpg';
-import img5 from '../../assets/img5.jpg';
-import img6 from '../../assets/img6.jpg';
+import img1 from '../../assets/cerca.jpg';
+import img2 from '../../assets/img5.jpg';
+import img3 from '../../assets/concertinas.jpg';
+import img4 from '../../assets/gradis.jpg';
+import img5 from '../../assets/muros.jpg';
+import img6 from '../../assets/portoes.jpg';
 
 // Lista de serviços
 const services = [
@@ -64,7 +64,7 @@ const Conteudo: React.FC = () => {
         position: 'relative',
         backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px)',
         backgroundSize: '50px 50px',
-        minHeight: '400px', // Garante altura mínima para a wave ser visível
+        minHeight: '400px',
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
@@ -119,7 +119,7 @@ const Conteudo: React.FC = () => {
         </Box>
 
         {/* Grid de Serviços */}
-        <Grid container spacing={4}>
+        <Grid container spacing={3} justifyContent="center">
           {services.map((service, index) => (
             <Grid
               item
@@ -135,57 +135,70 @@ const Conteudo: React.FC = () => {
               <Paper
                 elevation={0}
                 sx={{
-                  borderRadius: 12,
+                  borderRadius: 15,
                   overflow: 'hidden',
                   height: '100%',
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  background: 'linear-gradient(145deg, #ffffff, #f8f8f8)',
+                  boxShadow: '0 15px 40px rgba(0, 0, 0, 0.25)',
+                  border: '2px solid rgba(91, 15, 0, 0.15)',
+                  transition: 'all 0.5s ease',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                    boxShadow: '0 25px 60px rgba(0, 0, 0, 0.35)',
+                    transform: 'translateY(-10px) scale(1.02)', // Card zoom effect
                   },
                 }}
               >
-                <Box sx={{ position: 'relative', height: 240 }}>
+                <Box sx={{ position: 'relative', height: 200 }}>
                   <Box
-                    component="img"
-                    src={service.image}
-                    alt={service.name}
                     sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
-                      filter: 'brightness(0.95)',
-                      transition: 'transform 0.6s ease',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
+                      transition: 'transform 0.5s ease',
+                      '.MuiPaper-root:hover &': {
+                        transform: 'scale(0.9804)', // Inverse of 1.02 to counteract card scaling
                       },
                     }}
-                  />
+                  >
+                    <Box
+                      component="img"
+                      src={service.image}
+                      alt={service.name}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </Box>
                   <Box
                     sx={{
                       position: 'absolute',
                       inset: 0,
-                      background: 'linear-gradient(to top, rgba(91, 15, 0, 0.4) 0%, transparent 70%)',
+                      background: 'linear-gradient(to top, rgba(91, 15, 0, 0.7) 0%, transparent 60%)',
                     }}
                   />
                   <Box
                     sx={{
                       position: 'absolute',
-                      bottom: 16,
-                      left: 16,
-                      background: 'rgba(91, 15, 0, 0.7)',
-                      padding: '8px 16px',
-                      borderRadius: 8,
-                      color: '#E6E3DB',
+                      bottom: 20,
+                      left: 20,
+                      background: 'linear-gradient(45deg, #7A1F0A, #5B0F00)',
+                      padding: '10px 20px',
+                      borderRadius: 10,
+                      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
                     }}
                   >
                     <Typography
                       variant="h5"
                       sx={{
+                        fontSize: { xs: '1.25rem', md: '1.5rem' },
                         fontWeight: 600,
+                        color: '#E6E3DB',
                         fontFamily: "'Montserrat', sans-serif",
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)',
                       }}
                     >
                       {service.name}
@@ -193,7 +206,7 @@ const Conteudo: React.FC = () => {
                   </Box>
                 </Box>
 
-                <Box sx={{ p: 3 }}>
+                <Box sx={{ p: 3, background: 'transparent' }}>
                   <Typography
                     sx={{
                       color: '#4A2C2A',
@@ -237,25 +250,28 @@ const Conteudo: React.FC = () => {
 
                   <Box
                     component={motion.div}
-                    whileHover={{ scale: 1.05 }}
+                    whileHover={{ scale: 1.1 }}
                     sx={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      background: '#7A1F0A',
+                      background: 'linear-gradient(90deg, #7A1F0A, #5B0F00)',
                       color: '#E6E3DB',
-                      padding: '8px 16px',
-                      borderRadius: 6,
+                      padding: '10px 24px',
+                      borderRadius: 8,
                       fontWeight: 600,
+                      fontSize: '1rem',
                       cursor: 'pointer',
                       fontFamily: "'Montserrat', sans-serif",
-                      transition: 'background 0.3s ease',
+                      boxShadow: '0 5px 20px rgba(0, 0, 0, 0.2)',
+                      transition: 'all 0.4s ease',
                       '&:hover': {
-                        background: '#5B0F00',
+                        background: 'linear-gradient(90deg, #5B0F00, #7A1F0A)',
+                        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.3)',
                       },
                     }}
                   >
                     <Typography sx={{ mr: 1 }}>Saiba mais</Typography>
-                    <ArrowRight size={16} />
+                    <ArrowRight size={18} />
                   </Box>
                 </Box>
               </Paper>
@@ -444,11 +460,11 @@ const Conteudo: React.FC = () => {
           width: '100%',
           height: { xs: '60px', md: '82px' },
           zIndex: 1,
-          transform: 'scaleY(-1)', // Inverte a wave para "descer" do limite inferior
+          transform: 'scaleY(-1)',
         }}
       >
         <path
-          fill="#5B0F00" // Cor do fundo do Conteudo
+          fill="#5B0F00"
           d="M0,256 C120,224 240,192 360,200 C480,208 600,256 720,272 C840,288 960,256 1080,240 C1200,224 1320,240 1440,256 V321 H0 Z"
           style={{ filter: 'blur(2px)' }}
         />

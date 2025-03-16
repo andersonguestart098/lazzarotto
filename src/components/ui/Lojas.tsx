@@ -1,12 +1,12 @@
 import React from 'react';
-import { Box, Typography, Grid, Container, Paper, Divider } from '@mui/material';
+import { Box, Typography, Grid, Container, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, ArrowRight } from 'lucide-react';
 import loja1 from '../../assets/loja3.jpg'; // Imagem para Bento Gonçalves
 import loja2 from '../../assets/loja2.jpg'; // Imagem para Garibaldi
 import loja3 from '../../assets/loja1.jpg'; // Imagem para Porto Alegre
 
-// Dados das lojas com endereços reais
+// Dados das lojas
 const lojas = [
   {
     cidade: 'Bento Gonçalves',
@@ -31,12 +31,19 @@ const lojas = [
   },
 ];
 
+// Variantes para animações
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
+  hover: { y: -10, scale: 1.02, transition: { duration: 0.4 } },
+};
+
 const Lojas: React.FC = () => {
   return (
     <Box
       sx={{
         background: '#5B0F00',
-        py: 10,
+        py: 8,
         position: 'relative',
         backgroundImage: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px)',
         backgroundSize: '50px 50px',
@@ -48,19 +55,21 @@ const Lojas: React.FC = () => {
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          sx={{ textAlign: 'center', mb: 5 }}
+          sx={{ textAlign: 'center', mb: 6 }}
         >
           <Typography
             variant="h4"
             sx={{
+              fontSize: { xs: '1.5rem', md: '2.125rem' },
               fontWeight: 500,
               color: '#E6E3DB',
               fontFamily: "'Montserrat', sans-serif",
+              letterSpacing: '0.02em',
+              mb: 1.5,
               position: 'relative',
               display: 'inline-block',
-              mb: 1.5,
               '&::after': {
                 content: '""',
                 position: 'absolute',
@@ -76,53 +85,59 @@ const Lojas: React.FC = () => {
           >
             Nossas Lojas
           </Typography>
-
           <Typography
             variant="h6"
             sx={{
+              fontSize: { xs: '1rem', md: '1.25rem' },
               color: '#E6E3DB',
               maxWidth: '650px',
               mx: 'auto',
               fontWeight: 400,
               lineHeight: 1.5,
               opacity: 0.8,
-              mt: 2,
               fontFamily: "'Roboto', sans-serif",
+              mt: 2,
             }}
           >
-            Visite uma de nossas lojas em Bento Gonçalves, Garibaldi ou Porto Alegre e conheça nossas soluções em segurança e cercamento.
+            Explore nossas unidades em Bento Gonçalves, Garibaldi e Porto Alegre. Segurança e qualidade ao seu alcance.
           </Typography>
         </Box>
 
         {/* Grid de Lojas */}
-        <Grid container spacing={4}>
+        <Grid container spacing={3} justifyContent="center">
           {lojas.map((loja, index) => (
             <Grid
               item
               xs={12}
-              md={4}
+              sm={8}
+              md={6}
+              lg={4}
               key={index}
               component={motion.div}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={cardVariants}
+              initial="hidden"
+              whileInView="visible"
+              whileHover="hover"
               viewport={{ once: true }}
             >
-              <Paper
-                elevation={0}
+              <Box
                 sx={{
-                  borderRadius: 12,
+                  position: 'relative',
+                  borderRadius: 15,
                   overflow: 'hidden',
-                  height: '100%',
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  background: 'linear-gradient(145deg, #ffffff, #f8f8f8)',
+                  boxShadow: '0 15px 40px rgba(0, 0, 0, 0.25)',
+                  border: '2px solid rgba(91, 15, 0, 0.15)',
+                  transition: 'all 0.5s ease',
                   '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: '0 8px 20px rgba(0, 0, 0, 0.15)',
+                    boxShadow: '0 25px 60px rgba(0, 0, 0, 0.35)',
+                    transform: 'translateY(-10px) scale(1.02)', // Card zoom effect
                   },
+                  maxWidth: '100%',
                 }}
               >
-                <Box sx={{ position: 'relative', height: 240 }}>
+                {/* Imagem com overlay */}
+                <Box sx={{ position: 'relative', height: 300 }}>
                   <Box
                     component="img"
                     src={loja.imagem}
@@ -131,10 +146,9 @@ const Lojas: React.FC = () => {
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
-                      filter: 'brightness(0.95)',
-                      transition: 'transform 0.6s ease',
-                      '&:hover': {
-                        transform: 'scale(1.05)',
+                      transition: 'transform 0.4s ease', // Match the card's transition duration
+                      '.MuiGrid-item:hover &': {
+                        transform: 'scale(0.9804)', // Inverse of 1.02 to cancel out the card's scaling
                       },
                     }}
                   />
@@ -142,26 +156,28 @@ const Lojas: React.FC = () => {
                     sx={{
                       position: 'absolute',
                       inset: 0,
-                      background: 'linear-gradient(to top, rgba(91, 15, 0, 0.4) 0%, transparent 70%)',
+                      background: 'linear-gradient(to top, rgba(91, 15, 0, 0.7) 0%, transparent 60%)',
                     }}
                   />
                   <Box
                     sx={{
                       position: 'absolute',
-                      bottom: 16,
-                      left: 16,
-                      background: 'rgba(91, 15, 0, 0.7)',
-                      padding: '8px 16px',
-                      borderRadius: 8,
-                      color: '#E6E3DB',
+                      bottom: 20,
+                      left: 20,
+                      background: 'linear-gradient(45deg, #7A1F0A, #5B0F00)',
+                      padding: '10px 20px',
+                      borderRadius: 10,
+                      boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
                     }}
                   >
                     <Typography
                       variant="h5"
                       sx={{
+                        fontSize: { xs: '1.25rem', md: '1.5rem' },
                         fontWeight: 600,
+                        color: '#E6E3DB',
                         fontFamily: "'Montserrat', sans-serif",
-                        textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                        textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)',
                       }}
                     >
                       {loja.cidade}
@@ -169,9 +185,10 @@ const Lojas: React.FC = () => {
                   </Box>
                 </Box>
 
-                <Box sx={{ p: 3 }}>
+                {/* Conteúdo do Card */}
+                <Box sx={{ p: 4, background: 'transparent' }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <MapPin size={18} color="#5B0F00" style={{ marginRight: 8 }} />
+                    <MapPin size={20} color="#5B0F00" style={{ marginRight: 10 }} />
                     <Typography
                       sx={{
                         color: '#4A2C2A',
@@ -185,7 +202,7 @@ const Lojas: React.FC = () => {
                   </Box>
 
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                    <Phone size={18} color="#5B0F00" style={{ marginRight: 8 }} />
+                    <Phone size={20} color="#5B0F00" style={{ marginRight: 10 }} />
                     <Typography
                       sx={{
                         color: '#4A2C2A',
@@ -198,33 +215,37 @@ const Lojas: React.FC = () => {
                     </Typography>
                   </Box>
 
-                  <Divider sx={{ mb: 2, borderColor: 'rgba(91, 15, 0, 0.2)' }} />
-
-                  <Box
-                    component={motion.div}
-                    whileHover={{ scale: 1.05 }}
+                  <Button
+                    component={motion.button}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                     sx={{
-                      display: 'inline-flex',
+                      display: 'flex',
                       alignItems: 'center',
-                      background: '#7A1F0A',
+                      background: 'linear-gradient(90deg, #7A1F0A, #5B0F00)',
                       color: '#E6E3DB',
-                      padding: '8px 16px',
-                      borderRadius: 6,
+                      padding: '10px 24px',
+                      borderRadius: 8,
                       fontWeight: 600,
-                      cursor: 'pointer',
+                      fontSize: '1rem',
                       fontFamily: "'Montserrat', sans-serif",
-                      transition: 'background 0.3s ease',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.02em',
+                      boxShadow: '0 5px 20px rgba(0, 0, 0, 0.2)',
+                      transition: 'all 0.4s ease',
                       '&:hover': {
-                        background: '#5B0F00',
+                        background: 'linear-gradient(90deg, #5B0F00, #7A1F0A)',
+                        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.3)',
                       },
                     }}
                     onClick={() => window.open(loja.mapaLink, '_blank')}
                   >
-                    <Typography sx={{ mr: 1 }}>Ver no Mapa</Typography>
-                    <ArrowRight size={16} />
-                  </Box>
+                    Ver no Mapa
+                    <ArrowRight size={18} style={{ marginLeft: 10 }} />
+                  </Button>
                 </Box>
-              </Paper>
+              </Box>
+              
             </Grid>
           ))}
         </Grid>
